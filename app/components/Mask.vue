@@ -23,5 +23,6 @@ export default {
   height: 100vh;
   background: rgba($color: #000000, $alpha: 0.5);
   z-index: 1;
+  top: 0;
 }
 </style>

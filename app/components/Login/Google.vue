@@ -53,7 +53,7 @@ export default {
       if (user) {
         this.$store.commit('login/Login', { bool: true })
         this.$store.commit('login/User', { users: user.displayName })
-        this.$store.commit('login/Uuid', { id: user.uid })
+        this.$store.commit('login/Uid', { id: user.uid })
         this.$store.commit('login/Image', { image: user.photoURL })
         this.$store.commit('login/Loading', { bool: false })
         // this.user = user

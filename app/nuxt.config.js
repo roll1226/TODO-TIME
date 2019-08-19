@@ -9,9 +9,12 @@ export default {
   },
   manifest: {
     name: 'T時',
+    short_name: 'T時',
+    title: 'T時',
+    'og:title': 'T時',
     lang: 'ja',
-    theme_color: '#529b58',
-    background_color: '#4040F0',
+    theme_color: '#4040F0',
+    background_color: '#ffffff',
     display: 'fullscreen'
   },
   /*
@@ -26,9 +29,21 @@ export default {
         hid: 'description',
         name: 'description',
         content: process.env.npm_package_description || ''
+      },
+      {
+        name: 'apple-mobile-web-app-status-bar-style',
+        content: 'black'
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'apple-touch-startup-image',
+        media:
+          '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)',
+        href: '/launch-828x1792.png'
+      }
+    ],
     htmlAttrs: {
       lang: 'ja'
     }

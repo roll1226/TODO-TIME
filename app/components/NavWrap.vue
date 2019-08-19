@@ -56,7 +56,7 @@ export default {
 .nav-wrap {
   width: 20rem;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   transform: translateX(-20rem);
   transition: all 300ms ease-in-out 0s;
   z-index: 2;
@@ -70,6 +70,7 @@ export default {
     width: 20rem;
     height: 100vh;
     background: #ffffff;
+    top: 0;
   }
 }
 @media screen and (max-width: 770px) {

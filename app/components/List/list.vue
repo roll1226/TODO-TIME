@@ -26,9 +26,9 @@
         <h3>
           進行中
         </h3>
-        <draggable v-bind="options" :list="list2" group="lists">
+        <draggable v-bind="options" :list="dodo" group="lists">
           <div
-            v-for="element in list2"
+            v-for="element in dodo"
             :key="element.id"
             class="list-group-item box"
           >
@@ -39,11 +39,11 @@
 
       <div class="column">
         <h3>
-          終了
+          おわり
         </h3>
-        <draggable v-bind="options" :list="list3" group="lists">
+        <draggable v-bind="options" :list="finish" group="lists">
           <div
-            v-for="element in list3"
+            v-for="element in finish"
             :key="element.id"
             class="list-group-item box"
           >
@@ -57,6 +57,8 @@
 
 <script>
 import draggable from 'vuedraggable'
+import firebase from '@/plugins/firebase'
+
 let idGlobal = 8
 export default {
   components: {
@@ -67,45 +69,32 @@ export default {
       options: {
         animation: 400
       },
-      plans: [
-        { name: 'Jesus1', id: 1 },
-        { name: 'Paul2', id: 2 },
-        { name: 'Peter3', id: 3 }
-      ],
-      list2: [
-        { name: 'Luc4', id: 5 },
-        { name: 'Thomas5', id: 6 },
-        { name: 'John6', id: 7 }
-      ],
-      list3: [
-        { name: 'Luc7', id: 8 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 },
-        { name: 'Thomas8', id: 9 },
-        { name: 'John9', id: 10 }
-      ],
+      plans: [],
+      dodo: [{ name: 'Jesus1', id: 2 }],
+      finish: [{ name: 'Jesus1', id: 3 }],
       controlOnStart: true
     }
+  },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        // リアルタイム更新
+        firebase
+          .firestore()
+          .collection('todo_list')
+          .doc(user.uid)
+          .collection('todo_plane')
+          .orderBy('createdAt', 'desc')
+          .onSnapshot((querySnapshot) => {
+            const list = []
+            querySnapshot.forEach((doc) => {
+              // console.log(doc.data())
+              list.push(doc.data())
+            })
+            this.plans = list
+          })
+      }
+    })
   },
   methods: {
     clone({ name }) {

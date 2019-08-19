@@ -12,8 +12,9 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test": "jest",
     "git": "cd .. && github.command && cd app",
-    "deploy": "cd .. && firebase serve --only hosting && cd app",
-    "function": "cd .. && firebase serve --only functions && cd app"
+    "deploy": "cd .. && firebase deploy hosting && cd app",
+    "hosting": "cd .. && firebase deploy --only hosting && cd app",
+    "function": "cd .. && firebase deploy --only functions && cd app"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint"

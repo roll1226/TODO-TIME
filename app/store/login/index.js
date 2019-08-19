@@ -3,7 +3,7 @@ import firebase from '@/plugins/firebase'
 export const state = () => ({
   isLogin: false,
   user: '',
-  uuid: '',
+  uid: '',
   image: '',
   loading: false
 })
@@ -18,8 +18,8 @@ export const mutations = {
   User(state, payload) {
     state.user = payload.users
   },
-  Uuid(state, payload) {
-    state.uuid = payload.id
+  Uid(state, payload) {
+    state.uid = payload.id
   },
   Image(state, payload) {
     state.image = payload.image
@@ -44,5 +44,6 @@ export const getters = {
   IsLogin: (state) => state.isLogin,
   Users: (state) => state.user,
   Image: (state) => state.image,
-  Loading: (state) => state.loading
+  Loading: (state) => state.loading,
+  Uid: (state) => state.uid
 }

@@ -31,11 +31,35 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      plansText: ''
+      plansText: '',
+      id_last: '0',
+      store_id: []
     }
   },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        firebase
+          .firestore()
+          .collection('todo_list')
+          .doc(user.uid)
+          .collection('todo_plane')
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              // console.log(doc.data().id)
+
+              if (Number(doc.data().id) > Number(this.id_last)) {
+                this.id_last = doc.data().id
+              }
+            })
+          })
+      }
+    })
+  },
   computed: {
-    ...mapGetters({ addActive: 'list/addActive' })
+    ...mapGetters({ addActive: 'list/addActive', uid: 'login/Uid' })
   },
   methods: {
     changeAdd() {
@@ -43,14 +67,19 @@ export default {
       this.plansText = ''
     },
     submit_add_list() {
+      this.id_last = String(Number(this.id_last) + 1)
       firebase
         .firestore()
         .collection('todo_list')
+        .doc(this.uid)
+        .collection('todo_plane')
         .add({
-          id: 5,
-          name: this.plansText
+          id: this.id_last,
+          name: this.plansText,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
         })
       this.plansText = ''
+      this.$store.commit('list/changeAdd', { bool: false })
     }
   }
 }
@@ -83,6 +112,14 @@ export default {
     width: 100vw;
     height: 100vh;
     background: rgba($color: #000000, $alpha: 0.5);
+  }
+}
+
+@media screen and(max-width: 420px) {
+  .add-form {
+    .box {
+      width: 300px;
+    }
   }
 }
 </style>
