@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "todo",
   "version": "1.0.0",
   "description": "HAL生(ITのみ)のためのサイト",
   "author": "roll1226",
@@ -11,7 +11,9 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test": "jest",
-    "git": "cd .. && github.command && cd app"
+    "git": "cd .. && github.command && cd app",
+    "deploy": "cd .. && firebase serve --only hosting && cd app",
+    "function": "cd .. && firebase serve --only functions && cd app"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint"

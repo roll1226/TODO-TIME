@@ -8,10 +8,10 @@ export default {
     host: '0.0.0.0'
   },
   manifest: {
-    name: 'TO時間',
+    name: 'T時',
     lang: 'ja',
     theme_color: '#529b58',
-    background_color: '#bde0c0',
+    background_color: '#4040F0',
     display: 'fullscreen'
   },
   /*

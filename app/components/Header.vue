@@ -2,7 +2,7 @@
   <v-app-bar style="background: #4040F0;" dark>
     <v-app-bar-nav-icon @click="navChangeClick" />
     <v-toolbar-title>
-      TO時
+      T時
     </v-toolbar-title>
     <v-spacer />
     <Google />
